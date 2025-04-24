@@ -17,23 +17,16 @@ export class UserLoginComponent {
 
   // Método para manejar el inicio de sesión
   onSubmit() {
-    this.apiLoginService.login(this.nickname, this.password).subscribe(
-      (response) => {
-        console.log("epa la arepa", response);
-        if (response) {
-          // Si el login es correcto, redirige al componente de éxito (ejemplo: dashboard)
-          this.router.navigate(['/AdminDashComponent']);
-        } else {
-          // Si el login no es correcto, muestra el modal
-          console.log("error credenciales")
-          this.showError = "error credenciales";
-        }
+    this.apiLoginService.login(this.nickname, this.password).subscribe({
+      next: (res) => {
+        localStorage.setItem('token', res.token);
+        // redirigir o mostrar éxito
       },
-      (error) => {
-        // En caso de error (por ejemplo, problemas con la API), muestra el modal
-        console.log("error api", error)
-        this.showError = "error api";
+      error: () => {
+        alert('Credenciales incorrectas');
       }
-    );
+    });
+  
   };
+ 
 }
