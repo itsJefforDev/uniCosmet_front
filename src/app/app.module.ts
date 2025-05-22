@@ -16,6 +16,9 @@ import { UserCreateComponent } from './components/user/user-create/user-create.c
 import { ProductListComponent } from './components/product/product-list/product-list.component';
 import { UserRegisterComponent } from './components/user/user-register/user-register.component';
 import { ProductCreateComponent } from './components/product/product-create/product-create.component';
+import { StoreComponent } from './components/main/store/store.component';
+import { NavbarComponent } from './components/main/navbar/navbar.component';
+import { FeaturedProductsComponent } from './components/main/featured-products/featured-products.component';
 
 
 
@@ -30,6 +33,9 @@ import { ProductCreateComponent } from './components/product/product-create/prod
     ProductListComponent,
     UserRegisterComponent,
     ProductCreateComponent,
+    StoreComponent,
+    NavbarComponent,
+    FeaturedProductsComponent,
     
   ],
   imports: [

@@ -1,0 +1,42 @@
+/* navbar.component.scss */
+.navbar {
+  background-color: #000;
+  animation: slideDown 0.6s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.navbar a, .navbar .form-control, .navbar button {
+  color: #fff !important;
+  background: transparent;
+  border: none;
+}
+
+.navbar select {
+  color: #fff;
+  background-color: #000;
+  border: none;
+  border-radius: 0;
+  padding: 7px;
+  appearance: none;
+}
+
+.navbar select:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.navbar option {
+  color: #000;
+  background-color: #fff;
+}

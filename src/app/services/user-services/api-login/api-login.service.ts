@@ -8,7 +8,9 @@ import { catchError, Observable, throwError } from 'rxjs';
 export class ApiLoginService {
 
 
-  private baseUri = 'http://localhost:8080'; // URL de tu API de Spring Boot
+  //private baseUri = 'http://localhost:8080'; // URL de tu API de Spring Boot
+
+  private baseUri = 'https://unicosmet-back.onrender.com';
 
   constructor(private http: HttpClient) { }
 

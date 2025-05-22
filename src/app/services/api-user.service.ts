@@ -7,7 +7,8 @@ import { Observable } from 'rxjs'; // Para manejar las respuestas asincrónicas
 })
 export class ApiUserService {
 
-  private apiUrl = 'http://localhost:8080/user'; // URL de la API de ejemplo
+  //private apiUrl = 'http://localhost:8080'; // URL de la API de ejemplo
+ private apiUrl = 'https://unicosmet-back.onrender.com/user';
 
   constructor(private http: HttpClient) { }
 

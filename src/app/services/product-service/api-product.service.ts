@@ -7,8 +7,8 @@ import { Observable } from 'rxjs';
 })
 export class ApiProductService {
 
-  private apiUrl = 'http://localhost:8080/products';
-
+  //private apiUrl = 'http://localhost:8080/products';
+  private apiUrl = 'https://unicosmet-back.onrender.com/products';
   constructor(private http: HttpClient) { }
 
   createProduct(product: any, image: File | null): Observable<any> {
@@ -26,7 +26,7 @@ export class ApiProductService {
       formData.append('image', new Blob(), 'defaul.jpg');
     }
 
-    return this.http.post(this.apiUrl, formData);
+    return this.http.post(this.apiUrl,formData);
   }
 
 
