@@ -1,0 +1,23 @@
+<!-- espacio de columnas de productos -->
+
+<div class="fondo-contenedor">
+    <div class="fondo-contenido">
+        <div class="container mt-4">
+             <h1>Ofertas unicas!!!</h1>
+            <div class="bg- p-4 rounded shadow-sm">
+                <div class="row">
+                    <div class="col-md-4" *ngFor="let p of productos">
+                        <div class="card mb-4 shadow-sm">
+                            <img [src]="p.imagen" [alt]="p.nombre" class="card-img-top">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ p.nombre }}</h5>
+                                <p class="card-text">{{ p.descripcion }}</p>
+                                <p class="card-text fw-bold text-success">${{ p.precio | number }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

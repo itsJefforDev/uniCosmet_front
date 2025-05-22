@@ -19,6 +19,13 @@ import { ProductCreateComponent } from './components/product/product-create/prod
 import { StoreComponent } from './components/main/store/store.component';
 import { NavbarComponent } from './components/main/navbar/navbar.component';
 import { FeaturedProductsComponent } from './components/main/featured-products/featured-products.component';
+import { CorrouselAdsComponent } from './components/main/corrousel-ads/corrousel-ads.component';
+import { ShampooProductsComponent } from './components/main/shampoo-products/shampoo-products.component';
+import { FeaturedBrandsComponent } from './components/main/featured-brands/featured-brands.component';
+import { FaceProductsComponent } from './components/main/face-products/face-products.component';
+import { MarykayDescriptionComponent } from './components/main/marykay-description/marykay-description.component';
+import { FooterStoreComponent } from './components/main/footer-store/footer-store.component';
+import { SpecialOffComponent } from './components/main/special-off/special-off.component';
 
 
 
@@ -36,6 +43,13 @@ import { FeaturedProductsComponent } from './components/main/featured-products/f
     StoreComponent,
     NavbarComponent,
     FeaturedProductsComponent,
+    CorrouselAdsComponent,
+    ShampooProductsComponent,
+    FeaturedBrandsComponent,
+    FaceProductsComponent,
+    MarykayDescriptionComponent,
+    FooterStoreComponent,
+    SpecialOffComponent,
     
   ],
   imports: [

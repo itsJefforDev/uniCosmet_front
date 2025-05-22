@@ -14,7 +14,7 @@ const routes: Routes = [
   { path: 'UserListComponent', component: UserListComponent },
   { path: 'userRegisterComponent', component: UserRegisterComponent },
   { path: 'storeComponent', component: StoreComponent },
-  { path: '', redirectTo: '/HomeComponent', pathMatch: 'full' }
+  { path: '', redirectTo: '/storeComponent', pathMatch: 'full' }
 
 ];
 

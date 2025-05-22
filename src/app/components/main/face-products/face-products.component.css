@@ -1,0 +1,46 @@
+/* products.component.scss */
+.product-card {
+  border: 1px solid #eee;
+  border-radius: 10px;
+  padding: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.product-card:hover {
+  transform: scale(1.02);
+}
+
+.product-img {
+  max-height: 150px;
+  object-fit: cover;
+  width: 100%;
+  border-radius: 8px;
+}
+
+.product-carousel {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.product-carousel::-webkit-scrollbar {
+  display: none;
+}
+
+.product-card {
+  scroll-snap-align: start;
+  min-width: 300px;
+  flex-shrink: 0;
+  background: #fff;
+}
+
+.product-nav-btn {
+  background-color: #000;
+  color: #fff;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
