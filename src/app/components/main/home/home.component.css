@@ -1,13 +1,17 @@
 /* GLOBAL STYLES
 -------------------------------------------------- */
 /* Padding below the footer and lighter body text */
-
+:root{
+--gris:#9E9D9D;
+}
 body {
   padding-top: 3rem;
   padding-bottom: 3rem;
   color: rgb(var(--bs-tertiary-color-rgb));
 }
-
+.tx-color{
+  color: var() #9E9D9D
+}
 
 /* CUSTOMIZE THE CAROUSEL
 -------------------------------------------------- */
@@ -156,4 +160,15 @@ body {
 
 .bd-mode-toggle .dropdown-menu .active .bi {
   display: block !important;
+}
+/*background*/
+.bg-color{
+background: #9e9d9d;
+background: linear-gradient(0deg, rgba(158, 157, 157, 1) 0%, rgba(227, 227, 227, 1) 100%);
+}
+
+/* fondo de contenedor productos */
+.fondo-contenedor{
+background: #f5f2f2;
+background: linear-gradient(175deg, rgba(245, 242, 242, 1) 0%, rgba(227, 227, 227, 1) 100%)
 }
