@@ -1,39 +1,63 @@
 <div class="container-fluid mt-4">
   <h2>Crear usuario</h2>
-  <form class="row g-3" (ngSubmit)="saveUser()">
+  <form class="row g-3" (ngSubmit)="saveUser()" #productForm="ngForm" novalidate>
     <div class="col-md-4">
-      <label for="name" class="form-label" >Nombre</label>
-      <input type="text" class="form-control" id="name" value="Mark" [(ngModel)]="user.name" required name="name">
+      <label for="name" class="form-label">Nombre</label>
+      <input type="text" class="form-control" id="name" value="Mark" [(ngModel)]="user.name" required name="name"
+        #name="ngModel" [class.is-invalid]="name.invalid && name.touched" [class.is-valid]="name.valid && name.touched">
+      <div class="invalid-feedback">
+        el nombre es obligatorio.
+      </div>
     </div>
     <div class="col-md-2">
       <label for="age" class="form-label">Edad</label>
-      <input type="number" class="form-control" id="age" value="Otto" [(ngModel)]="user.age" required name="age">
+      <input type="number" class="form-control" id="age" value="Otto" [(ngModel)]="user.age" required name="age"
+        min="18" #age="ngModel" [class.is-invalid]="age.invalid && age.touched"
+        [class.is-valid]="age.valid && age.touched" />
+      <div class="invalid-feedback">
+        debes ser mayor de edad.
+      </div>
     </div>
     <div class="col-md-6">
       <label for="email" class="form-label">Email</label>
       <div class="input-group">
         <span class="input-group-text" id="inputGroupPrepend2"></span>
-        <input type="email" class="form-control" id="email" aria-describedby="inputGroupPrepend2" [(ngModel)]="user.email" required name="email">
+        <input type="email" class="form-control" id="email" aria-describedby="inputGroupPrepend2"
+          [(ngModel)]="user.email" required name="email" #email="ngModel"
+          [class.is-invalid]="email.invalid && email.touched" [class.is-valid]="email.valid && email.touched" />
+        <div class="invalid-feedback">
+          el email es obligatorio
+        </div>
       </div>
     </div>
     <div class="col-md-6">
       <label for="nickname" class="form-label">nickname</label>
-      <input type="text" class="form-control" id="nickname" [(ngModel)]="user.nickname" required name="nickname">
+      <input type="text" class="form-control" id="nickname" [(ngModel)]="user.nickname" required name="nickname"
+        #nickname="ngModel" [class.is-invalid]="nickname.invalid && nickname.touched"
+        [class.is-valid]="nickname.valid && nickname.touched" />
+      <div class="invalid-feedback">
+        el usuario es obligatorio
+      </div>
     </div>
     <div class="col-md-4">
       <label for="password" class="form-label">Contraseña</label>
-      <input type="password" class="form-control" id="password"[(ngModel)]="user.password" required name="password">
+      <input type="password" class="form-control" id="password" [(ngModel)]="user.password" required name="password"
+        #password="ngModel" [class.is-invalid]="password.invalid && password.touched"
+        [class.is-valid]="password.valid && password.touched" />
+      <div class="invalid-feedback">
+        la contraseña es obligatoria
+      </div>
     </div>
     <div class="col-md-2">
       <label for="validationDefault04" class="form-label">Rol</label>
       <select class="form-select" id="validationDefault04" [(ngModel)]="user.rol" required name="rol">
         <option selected disabled value="">Choose...</option>
-        <option value="admin">admin</option>
-        <option value="user">user</option>
+        <option value="ADMIN">admin</option>
+        <option value="USER">user</option>
       </select>
     </div>
     <div class="col-12">
-      <button class="btn btn-primary" type="submit">Enviar Formato</button>
+      <button class="btn btn-primary" type="submit" [disabled]="productForm.invalid">Enviar Formato</button>
     </div>
   </form>
 

@@ -14,9 +14,8 @@
         <!-- Filtro por Rol -->
         <select class="form-control" [(ngModel)]="rolFilter" (change)="applyFilters()">
           <option value="">Seleccionar Rol</option>
-          <option value="admin">Admin</option>
-          <option value="user">Usuario</option>
-          <option value="moderator">Moderador</option>
+          <option value="ADMIN">Admin</option>
+          <option value="USER">Usuario</option>
           <!-- Puedes agregar más opciones según tus roles -->
         </select>
       </div>
@@ -88,8 +87,8 @@
             <select class="form-select" aria-label="Default select example" id="rol" [(ngModel)]="selectedUser.rol"
               name="rol" required>
               <option selected>Open this select menu</option>
-              <option value="Admin">Admin</option>
-              <option value="User">User</option>
+              <option value="ADMIN">Admin</option>
+              <option value="USER">User</option>
             </select>
           </div>
           <button type="submit" class="btn btn-primary">Guardar</button>

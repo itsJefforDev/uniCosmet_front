@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ApiUserService } from '../../../services/api-user.service';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';// Usaremos el enrutador para redirigir
 
 @Component({
   selector: 'app-user-register',
@@ -10,22 +11,18 @@ import Swal from 'sweetalert2';
 })
 export class UserRegisterComponent {
   user: any = {};
-  confirmPass: String = "";
-  result: Boolean = true;
 
-
-
-  constructor(private apiUserService: ApiUserService) { }
+  constructor(private apiUserService: ApiUserService, private router: Router) { }
   saveUser(): void {
-
-    this.user.rol = "user";
+    this.user.rol = "USER";
     this.apiUserService.createUser(this.user).subscribe(
       () => {
-        Swal.fire(
-          'Éxito!',
-          'Usuario editado correctamente.',
-          'success'
-        );
+        Swal.fire({
+          title: "Registrado!",
+          icon: "success",
+          draggable: true // Redirige al dashboard
+        });
+        this.router.navigate(['/userLoginComponent']);
       },
       (error) => {
         console.error('Error al guardar los cambios del usuario', error);
@@ -35,7 +32,8 @@ export class UserRegisterComponent {
           'error'
         );
       }
-    );
-  }
+
+    )
+  };
 
 }

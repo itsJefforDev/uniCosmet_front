@@ -39,6 +39,7 @@ export class ApiLoginService {
         localStorage.setItem('token', response.token);
         localStorage.setItem('nickname', response.nickname);
         localStorage.setItem('rol', response.rol);
+        console.log(response);
       })
     );
   }
