@@ -15,6 +15,8 @@ export class UserLoginComponent {
   errorMessage: string = '';
   loading = false;
 
+  currentUser: any;
+
   constructor(private fb: FormBuilder, private apiLoginService: ApiLoginService, private router: Router) {
     this.loginForm = this.fb.group({
       nickname: ['', Validators.required],
@@ -32,7 +34,22 @@ export class UserLoginComponent {
 
       this.apiLoginService.login(nickname, password).subscribe({
         next: () => {
-          this.router.navigate(['/AdminDashComponent']); // Redirige al dashboard
+
+          this.apiLoginService.loadCurrentUser()
+          this.apiLoginService.currentUser$.subscribe(user => {
+            this.currentUser = user;
+          });
+
+          if (this.currentUser.rol == "ADMIN") {
+            this.router.navigate(['/AdminDashComponent']);
+            console.log(this.currentUser); // Redirige al dashboard
+          } else {
+            this.router.navigate(['/storeComponent']);
+            console.log(this.currentUser);
+          }
+
+
+
         },
         error: (err) => {
           this.errorMessage = 'Credenciales incorrectas';

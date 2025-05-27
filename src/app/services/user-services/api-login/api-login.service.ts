@@ -1,7 +1,8 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';// Usaremos el enrutador para redirigir
-import { catchError, Observable, tap, throwError } from 'rxjs';
+import { BehaviorSubject, catchError, Observable, tap, throwError } from 'rxjs';
+import { JwtUtil } from '../../../utils/utils';
 
 
 
@@ -24,13 +25,14 @@ interface AuthResponse {
 
 export class ApiLoginService {
 
-  
+  private currentUserSubject = new BehaviorSubject<any>(null);
+  public currentUser$ = this.currentUserSubject.asObservable();
 
   private baseUri = 'http://localhost:8080'; // URL de tu API de Spring Boot
 
   //private baseUri = 'https://unicosmet-back.onrender.com';
 
-  constructor(private http: HttpClient, private router: Router ) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   login(nickname: string, password: string): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(`${this.baseUri}/api/auth/authenticate`, { nickname, password }).pipe(
@@ -44,7 +46,7 @@ export class ApiLoginService {
     );
   }
 
-    logout(): void {
+  logout(): void {
     // Eliminar datos de autenticación
     localStorage.removeItem('token');
     localStorage.removeItem('nickname');
@@ -52,12 +54,43 @@ export class ApiLoginService {
     this.router.navigate(['/userLoginComponent']);
   }
 
-    isAuthenticated(): boolean {
+  isAuthenticated(): boolean {
     return !!localStorage.getItem('token');
   }
 
-    getToken(): string | null {
+  getToken(): string | null {
     return localStorage.getItem('token');
+  }
+
+  getCurrentUserId(): number | null {
+    const token = this.getToken();
+    if (!token) return null;
+
+    // Decodificar el token para obtener el ID (esto es un ejemplo simplificado)
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    return payload.userId || null; // Asegúrate que tu JWT incluya el userId
+  }
+
+  private setCurrentUser(token: string): void {
+    const decodedToken = JwtUtil.decodeToken(token);
+    const user = {
+      nickname: decodedToken.nickname, // O el campo donde guardas el username
+      rol: decodedToken.rol,     // Asegúrate que coincide con tu backend
+      id: decodedToken.id    // Si incluyes el ID en el token
+    };
+    this.currentUserSubject.next(user);
+  }
+
+    getCurrentUser(): any {
+    return this.currentUserSubject.value;
+  }
+
+  
+  loadCurrentUser(): void {
+    const token = this.getToken();
+    if (token) {
+      this.setCurrentUser(token);
+    }
   }
 
   /*
