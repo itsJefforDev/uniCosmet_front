@@ -8,11 +8,11 @@
     </div>
   </div>
 
-  <div id="productCarouselFace" class="product-carousel">
+  <div id="productCarouselFace" class="product-carousel color-tx">
     <div class="product-card" *ngFor="let product of products">
       <img [src]="product.image" class="product-img" [alt]="product.name">
-      <h5>{{ product.name }}</h5>
-      <p>{{ product.description }}</p>
+      <h5 class="color-texto">{{ product.name }}</h5>
+      <p class="color-tx">{{ product.description }}</p>
       <p><strong>{{ product.price | currency }}</strong></p>
       <small>{{ product.rating }}</small>
     </div>

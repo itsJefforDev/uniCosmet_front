@@ -40,3 +40,8 @@
   color: #000;
   background-color: #fff;
 }
+
+.border{
+    border:color#808b96
+    padding 3px;
+}
