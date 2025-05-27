@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration, withEventReplay } from '@angular/platform-browser';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -51,13 +52,15 @@ import { SpecialOffComponent } from './components/main/special-off/special-off.c
     FooterStoreComponent,
     SpecialOffComponent,
     
+    
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,  // Agregar HttpClientModule en la sección de imports (apis)
     MaterialModule,  // Aquí se importa el módulo que contiene todos los módulos de Angular Material
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
 
   ],
   providers: [

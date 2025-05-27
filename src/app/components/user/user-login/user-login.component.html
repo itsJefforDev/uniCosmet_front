@@ -1,60 +1,57 @@
-<section class="vh-100 gradient-custom">
-  <!-- Mostrar mensaje de error si hay uno -->
-  <div *ngIf="showError" class="error-message">
-    <p>{{showError}}</p>
-  </div>
-
-  <div class="container py-5 h-100">
-    <div class="row d-flex justify-content-center align-items-center h-100">
-      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-        <div class="card bg-dark text-white" style="border-radius: 1rem;">
-          <div class="card-body p-5 text-center">
-
-            <div class="mb-md-5 mt-md-4 pb-5">
-
-              <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
-              <p class="text-white-50 mb-5">Please enter your login and password!</p>
-
-              <form (ngSubmit)="onSubmit()">
-                <div data-mdb-input-init class="form-outline form-white mb-4">
-                  <input type="text" id="nickname" class="form-control form-control-lg" [(ngModel)]="nickname"
-                    name="nickname" required #nicknameModel="ngModel" placeholder="Ingrese su nickname" />
-                  <label class="form-label" for="nickname">nickname</label>
-                  <div *ngIf="nicknameModel.invalid && nicknameModel.touched" class="error">
-                    Nickname is required.
-                  </div>
-                </div>
-
-                <div data-mdb-input-init class="form-outline form-white mb-4">
-                  <input type="password" id="password" class="form-control form-control-lg" [(ngModel)]="password"
-                    name="password" required #passwordModel="ngModel" placeholder="Ingrese su contraseña" />
-                  <label class="form-label" for="password">Password</label>
-                  <div *ngIf="passwordModel.invalid && passwordModel.touched" class="error">
-                    Password is required.
-                  </div>
-                </div>
-
-                <p class="small mb-5 pb-lg-2"><a class="text-white-50" href="#!">Forgot password?</a></p>
-
-                <button data-mdb-button-init data-mdb-ripple-init class="btn btn-outline-light btn-lg px-5"
-                  type="submit">Login</button>
-              </form>
-              <div class="d-flex justify-content-center text-center mt-4 pt-1">
-                <a href="#!" class="text-white"><i class="fab fa-facebook-f fa-lg"></i></a>
-                <a href="#!" class="text-white"><i class="fab fa-twitter fa-lg mx-4 px-2"></i></a>
-                <a href="#!" class="text-white"><i class="fab fa-google fa-lg"></i></a>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="text-center">Iniciar Sesión</h3>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <div class="mb-3">
+              <label for="nickname" class="form-label">Nickname</label>
+              <input 
+                type="text" 
+                class="form-control" 
+                id="nickname"
+                formControlName="nickname"
+                [class.is-invalid]="loginForm.get('nickname')?.invalid && loginForm.get('nickname')?.touched">
+              <div class="invalid-feedback">
+                Por favor ingresa tu nickname
               </div>
-
             </div>
-
-            <div>
-              <p class="mb-0">Don't have an account? <a href="#!" class="text-white-50 fw-bold">Sign Up</a>
-              </p>
+            
+            <div class="mb-3">
+              <label for="password" class="form-label">Contraseña</label>
+              <input 
+                type="password" 
+                class="form-control" 
+                id="password"
+                formControlName="password"
+                [class.is-invalid]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+              <div class="invalid-feedback">
+                Por favor ingresa tu contraseña
+              </div>
             </div>
-
-          </div>
+            
+            <div *ngIf="errorMessage" class="alert alert-danger">
+              {{ errorMessage }}
+            </div>
+            
+            <div class="d-grid">
+              <button 
+                type="submit" 
+                class="btn btn-primary"
+                [disabled]="loginForm.invalid || loading">
+                <span *ngIf="!loading">Iniciar Sesión</span>
+                <span *ngIf="loading">
+                  <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                  Procesando...
+                </span>
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
   </div>
-</section>
+</div>

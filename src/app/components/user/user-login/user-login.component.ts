@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ApiLoginService } from '../../../services/user-services/api-login/api-login.service';
 import { Router } from '@angular/router';// Usaremos el enrutador para redirigir
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-user-login',
@@ -9,12 +10,43 @@ import { Router } from '@angular/router';// Usaremos el enrutador para redirigir
   styleUrl: './user-login.component.css'
 })
 export class UserLoginComponent {
-  nickname: string = '';
-  password: string = '';
-  showError: string = ''; // Variable para mostrar el mensaje de error
 
-  constructor(private apiLoginService: ApiLoginService, private router: Router) { }
+  loginForm: FormGroup;
+  errorMessage: string = '';
+  loading = false;
 
+  constructor(private fb: FormBuilder, private apiLoginService: ApiLoginService, private router: Router) {
+    this.loginForm = this.fb.group({
+      nickname: ['', Validators.required],
+      password: ['', Validators.required]
+    });
+  }
+
+
+  onSubmit(): void {
+    if (this.loginForm.valid) {
+      this.loading = true;
+      this.errorMessage = '';
+
+      const { nickname, password } = this.loginForm.value;
+
+      this.apiLoginService.login(nickname, password).subscribe({
+        next: () => {
+          this.router.navigate(['/AdminDashComponent']); // Redirige al dashboard
+        },
+        error: (err) => {
+          this.errorMessage = 'Credenciales incorrectas';
+          this.loading = false;
+        },
+        complete: () => {
+          this.loading = false;
+        }
+      });
+    }
+  }
+
+
+  /* old
   // Método para manejar el inicio de sesión
   onSubmit() {
     this.apiLoginService.login(this.nickname, this.password).subscribe(
@@ -35,5 +67,5 @@ export class UserLoginComponent {
         this.showError = "error api";
       }
     );
-  };
+  }*/
 }
