@@ -1,0 +1,51 @@
+<!-- product-detail.component.html -->
+<div class="container mt-4" *ngIf="!loading">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="product-image-placeholder">
+        <!-- Puedes reemplazar esto con una imagen real -->
+        <span class="image-text">{{ product.name | slice:0:1 }}</span>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <h1 class="product-title">{{ product.name }}</h1>
+      <p class="product-price">{{ product.price | currency }}</p>
+      <p class="product-description">{{ product.description }}</p>
+      
+      <div class="d-flex align-items-center mb-4">
+        <label class="me-3">Cantidad:</label>
+        <input 
+          type="number" 
+          class="form-control quantity-input"
+          [(ngModel)]="quantity"
+          [max]="maxQuantity"
+          min="1"
+          style="width: 80px;">
+        <span class="ms-2 text-muted">(Max: {{ maxQuantity }})</span>
+      </div>
+      
+      <button 
+        class="btn btn-purchase"
+        (click)="purchaseProduct()"
+        [disabled]="product.stock <= 0">
+        {{ product.stock > 0 ? 'Comprar Ahora' : 'Sin Stock' }}
+      </button>
+      
+      <div class="stock-message mt-3">
+        <span [class.text-success]="product.stock > 5" 
+              [class.text-warning]="product.stock <= 5 && product.stock > 0"
+              [class.text-danger]="product.stock === 0">
+          {{ product.stock > 0 ? 
+             (product.stock > 5 ? 'Disponible' : 'Últimas unidades') : 
+             'Agotado' }}
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="loading" class="text-center mt-5">
+  <div class="spinner-border" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>

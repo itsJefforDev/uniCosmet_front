@@ -1,10 +1,12 @@
-import { NgModule } from '@angular/core';
+import { NgChartsModule } from 'ng2-charts';
+import { NgModule, PLATFORM_ID } from '@angular/core';
 import { BrowserModule, provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http'; // Importar HttpClientModule
+import { HTTP_INTERCEPTORS, HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http'; // Importar HttpClientModule
 
 // Importa el módulo de Angular Material
 import { MaterialModule } from './material.module';
@@ -27,6 +29,18 @@ import { FaceProductsComponent } from './components/main/face-products/face-prod
 import { MarykayDescriptionComponent } from './components/main/marykay-description/marykay-description.component';
 import { FooterStoreComponent } from './components/main/footer-store/footer-store.component';
 import { SpecialOffComponent } from './components/main/special-off/special-off.component';
+import { ProductCardCountComponent } from './components/analytics/product-card-count/product-card-count.component';
+import { DashboardGeneralComponent } from './components/analytics/dashboard-general/dashboard-general.component';
+import { UserCardCountComponent } from './components/analytics/user-card-count/user-card-count.component';
+import { ProductBarchartCategoryComponent } from './components/analytics/product-barchart-category/product-barchart-category.component';
+import { UserBarchartRolComponent } from './components/analytics/user-barchart-rol/user-barchart-rol.component';
+import { UserViewComponent } from './components/user/user-view/user-view.component';
+import { UserDashComponent } from './components/user/user-dash/user-dash.component';
+import { ListProductPurchaseComponent } from './components/product/list-product-purchase/list-product-purchase.component';
+import { ProductDetailsComponent } from './components/product/product-details/product-details.component';
+import { UserPurchasesComponent } from './components/user/user-purchases/user-purchases.component';
+import { JwtInterceptor } from './utils/JwtInterceptor';
+import { isPlatformBrowser } from '@angular/common';
 
 
 
@@ -51,6 +65,16 @@ import { SpecialOffComponent } from './components/main/special-off/special-off.c
     MarykayDescriptionComponent,
     FooterStoreComponent,
     SpecialOffComponent,
+    ProductCardCountComponent,
+    DashboardGeneralComponent,
+    UserCardCountComponent,
+    ProductBarchartCategoryComponent,
+    UserBarchartRolComponent,
+    UserViewComponent,
+    UserDashComponent,
+    ListProductPurchaseComponent,
+    ProductDetailsComponent,
+    UserPurchasesComponent,
     
     
   ],
@@ -60,12 +84,24 @@ import { SpecialOffComponent } from './components/main/special-off/special-off.c
     HttpClientModule,  // Agregar HttpClientModule en la sección de imports (apis)
     MaterialModule,  // Aquí se importa el módulo que contiene todos los módulos de Angular Material
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgChartsModule
+    
 
   ],
   providers: [
     provideClientHydration(withEventReplay()),
-    provideHttpClient(withFetch())  // Configura HttpClient para usar fetch
+    provideHttpClient(withFetch()),  // Configura HttpClient para usar fetch
+        { 
+      provide: 'LOCALSTORAGE', 
+      useFactory: (platformId: Object) => {
+        if (isPlatformBrowser(platformId)) {
+          return window.localStorage;
+        }
+        return null;
+      },
+      deps: [PLATFORM_ID]
+    }
   ],
   bootstrap: [AppComponent]
 })

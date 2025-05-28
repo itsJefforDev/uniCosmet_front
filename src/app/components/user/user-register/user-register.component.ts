@@ -22,7 +22,7 @@ export class UserRegisterComponent {
           icon: "success",
           draggable: true // Redirige al dashboard
         });
-        this.router.navigate(['/userLoginComponent']);
+        this.router.navigate(['/userViewComponent']);
       },
       (error) => {
         console.error('Error al guardar los cambios del usuario', error);

@@ -1,14 +1,15 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Product } from '../../models/Product';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiProductService {
 
-  //private apiUrl = 'http://localhost:8080/products';
-  private apiUrl = 'https://unicosmet-back.onrender.com/products';
+  private apiUrl = 'http://localhost:8080/products';
+  //private apiUrl = 'https://unicosmet-back.onrender.com/products';
   constructor(private http: HttpClient) { }
 
   createProduct(product: any, image: File | null): Observable<any> {
@@ -59,5 +60,10 @@ export class ApiProductService {
   // Método para eliminar un usuario
   deleteProduct(id: number): Observable<HttpResponse<any>> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`,{ observe: 'response' });
+  }
+
+    // Método para eliminar un usuario
+  getProductById(id: number): Observable<Product> {
+    return this.http.get<Product>(`${this.apiUrl}/${id}`);
   }
 }

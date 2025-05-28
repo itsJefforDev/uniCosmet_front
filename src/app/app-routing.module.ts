@@ -6,6 +6,13 @@ import { AdminDashComponent } from './components/user/admin-dash/admin-dash.comp
 import { UserListComponent } from './components/user/user-list/user-list.component';
 import { UserRegisterComponent } from './components/user/user-register/user-register.component';
 import { StoreComponent } from './components/main/store/store.component';
+import { ProductCardCountComponent } from './components/analytics/product-card-count/product-card-count.component';
+import { DashboardGeneralComponent } from './components/analytics/dashboard-general/dashboard-general.component';
+import { UserViewComponent } from './components/user/user-view/user-view.component';
+import { UserDashComponent } from './components/user/user-dash/user-dash.component';
+import { ListProductPurchaseComponent } from './components/product/list-product-purchase/list-product-purchase.component';
+import { ProductDetailsComponent } from './components/product/product-details/product-details.component';
+import { UserPurchasesComponent } from './components/user/user-purchases/user-purchases.component';
 
 const routes: Routes = [
   { path: 'userLoginComponent', component: UserLoginComponent },
@@ -14,6 +21,18 @@ const routes: Routes = [
   { path: 'UserListComponent', component: UserListComponent },
   { path: 'userRegisterComponent', component: UserRegisterComponent },
   { path: 'storeComponent', component: StoreComponent },
+  { path: 'productCardCountComponent', component: ProductCardCountComponent },
+  { path: 'dashboardGeneralComponent', component: DashboardGeneralComponent },
+  { path: 'userViewComponent', component: UserViewComponent },
+  { path: 'userDashComponent', component: UserDashComponent },
+  { path: 'listProductPurchaseComponent', component: ListProductPurchaseComponent },
+  { path: 'products/:id', component: ProductDetailsComponent },
+  { path: 'userPurchasesComponent', component: UserPurchasesComponent },
+
+  
+
+  
+  
   { path: '', redirectTo: '/storeComponent', pathMatch: 'full' }
 
 ];

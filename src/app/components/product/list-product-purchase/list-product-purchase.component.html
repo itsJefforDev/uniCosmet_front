@@ -1,0 +1,22 @@
+<!-- product-list.component.html -->
+<div class="container mt-4">
+  <h1 class="text-center mb-4">Productos Disponibles</h1>
+  
+  <div *ngIf="loading" class="text-center">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4 mb-4" *ngFor="let product of products">
+      <div class="card product-card" (click)="viewProductDetail(product.productId)">
+        <div class="card-body">
+          <h5 class="card-title">{{ product.name }}</h5>
+          <p class="card-text text-muted">{{ product.price | currency }}</p>
+          <span class="badge bg-secondary">Stock: {{ product.stock }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

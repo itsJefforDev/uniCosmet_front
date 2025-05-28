@@ -9,7 +9,7 @@ import Swal from 'sweetalert2';
   templateUrl: './user-list.component.html',
   styleUrl: './user-list.component.css'
 })
-export class UserListComponent implements OnInit {
+export class UserListComponent {
 
   users: any[] = [];  // Aquí almacenamos los usuarios
   selectedUser: any = {};
