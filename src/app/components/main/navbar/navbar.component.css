@@ -17,7 +17,7 @@
 }
 
 .navbar a, .navbar .form-control, .navbar button {
-  color: #fff !important;
+  color: #fff;
   background: transparent;
   border: none;
 }
@@ -38,10 +38,42 @@
 
 .navbar option {
   color: #000;
-  background-color: #fff;
+  background-color: #000000;
 }
 
 .border{
     border:color#808b96
     padding 3px;
+}
+
+.navbar {
+  background-color: #000000;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.navbar-brand {
+  font-weight: 600;
+  font-size: 1.5rem;
+}
+
+.dropdown-menu {
+  border: none;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  background-color: #000000 !important;
+}
+
+.dropdown-item {
+  padding: 0.5rem 1.5rem;
+  background-color: #000000 !important;
+  color: black;
+}
+
+.dropdown-item:active {
+  background-color: #000000 !important;
+  color: #333;
+}
+
+.badge {
+  font-size: 0.6rem;
+  vertical-align: top;
 }

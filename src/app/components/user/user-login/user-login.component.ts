@@ -44,7 +44,7 @@ export class UserLoginComponent {
             this.router.navigate(['/AdminDashComponent']);
             console.log(this.currentUser); // Redirige al dashboard
           } else {
-            this.router.navigate(['/storeComponent']);
+            this.router.navigate(['/userDashComponent']);
             console.log(this.currentUser);
           }
 

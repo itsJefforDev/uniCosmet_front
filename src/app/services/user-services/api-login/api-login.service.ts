@@ -51,7 +51,7 @@ export class ApiLoginService {
     localStorage.removeItem('token');
     localStorage.removeItem('nickname');
     localStorage.removeItem('rol');
-    this.router.navigate(['/userLoginComponent']);
+    // this.router.navigate(['/userLoginComponent']);
   }
 
   isAuthenticated(): boolean {

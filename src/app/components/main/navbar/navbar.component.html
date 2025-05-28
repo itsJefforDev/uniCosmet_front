@@ -19,9 +19,31 @@
         </select>
       </li>
       <li class="nav-item"><a class="nav-link" href="#">Acerca de</a></li>
-      <li class="nav-item"><a class="nav-link" href="#" [routerLink]="['/userLoginComponent']">Iniciar sesión</a></li>
-      <li class="nav-item"><a class="nav-link" href="#" [routerLink]="['/userRegisterComponent']">Registrarse</a></li>
-      <!-- <li class="nav-item"><a class="nav-link" href="#">🛒</a></li> -->
+      <!-- Opciones cuando NO está autenticado -->
+      <ng-container *ngIf="!isAuthenticated">
+        <li class="nav-item"><a class="nav-link" [routerLink]="['/userLoginComponent']">Iniciar sesión</a></li>
+        <li class="nav-item"><a class="nav-link" [routerLink]="['/userRegisterComponent']">Registrarse</a></li>
+      </ng-container>
+      <!-- Opciones cuando SÍ está autenticado -->
+      <ng-container *ngIf="isAuthenticated">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
+            {{ userNickname || 'Mi cuenta' }}
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" [routerLink]="['/profile']">Editar perfil</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/my-purchases']">Mis compras</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" [routerLink]="['/']" (click)="logout()">Cerrar sesión</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/cart']">
+            🛒
+            <span class="badge bg-danger rounded-pill">0</span> <!-- Opcional: contador de carrito -->
+          </a>
+        </li>
+      </ng-container>
     </ul>
   </div>
 </nav>
