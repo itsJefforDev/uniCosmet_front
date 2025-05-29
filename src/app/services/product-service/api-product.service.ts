@@ -8,8 +8,8 @@ import { Product } from '../../models/Product';
 })
 export class ApiProductService {
 
-  private apiUrl = 'http://localhost:8080/products';
-  //private apiUrl = 'https://unicosmet-back.onrender.com/products';
+  //private apiUrl = 'http://localhost:8080/products';
+  private apiUrl = 'https://unicosmet-back.onrender.com/products';
   constructor(private http: HttpClient) { }
 
   createProduct(product: any, image: File | null): Observable<any> {

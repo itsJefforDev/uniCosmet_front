@@ -28,9 +28,9 @@ export class ApiLoginService {
   private currentUserSubject = new BehaviorSubject<any>(null);
   public currentUser$ = this.currentUserSubject.asObservable();
 
-  private baseUri = 'http://localhost:8080'; // URL de tu API de Spring Boot
+  //private baseUri = 'http://localhost:8080'; // URL de tu API de Spring Boot
 
-  //private baseUri = 'https://unicosmet-back.onrender.com';
+  private baseUri = 'https://unicosmet-back.onrender.com';
 
   constructor(private http: HttpClient, private router: Router) { }
 

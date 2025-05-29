@@ -13,7 +13,8 @@ import { isPlatformBrowser } from '@angular/common';
 })
 export class ApiPurchaseProductService {
 
-  private apiUrl = 'http://localhost:8080/api/purchases';
+  //private apiUrl = 'http://localhost:8080/api/purchases';
+  private apiUrl = 'https://unicosmet-back.onrender.com/api/purchases';
 
   constructor(private http: HttpClient) {
 
