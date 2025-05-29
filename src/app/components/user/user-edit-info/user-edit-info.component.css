@@ -1,0 +1,74 @@
+.edit-container {
+  max-width: 400px;
+  margin: 40px auto;
+  padding: 2rem;
+  background-color: white;
+  color: black;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+
+  &.loading {
+    opacity: 0.6;
+    pointer-events: none;
+    transform: scale(0.98);
+  }
+
+  h2 {
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+
+    label {
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+
+    input, select {
+      padding: 0.5rem;
+      margin-top: 0.25rem;
+      border: 1px solid rgb(167, 167, 167);
+      border-radius: 9px;
+      background: white;
+      color: black;
+      font-size: 1rem;
+    }
+
+    .error {
+      font-size: 0.8rem;
+      color: red;
+      margin-top: 0.25rem;
+    }
+
+    .error-message {
+      margin-top: 1rem;
+      color: red;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    button {
+      margin-top: 2rem;
+      padding: 0.75rem;
+      background-color: black;
+      border-radius: 20px;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.2s ease-in-out;
+
+      &:hover {
+        background-color: #222;
+      }
+
+      &:disabled {
+        background-color: #888;
+        cursor: not-allowed;
+      }
+    }
+  }
+}

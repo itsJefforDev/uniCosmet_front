@@ -29,7 +29,7 @@ export class AdminDashComponent {
     this.productList = false;
     this.productCreate = false;
     this.generalDashBoard = false;
-    this.showDash = false;
+    // this.showDash = false;
   }
 
   showUserCreate() {
@@ -56,17 +56,17 @@ export class AdminDashComponent {
     this.generalDashBoard = true;
   }
 
-  showDash = true;
+  // showDash = true;
 
-  reloadDash() {
-    this.showDash = false;
-    setTimeout(() => this.showDash = true);
-    window.location.reload();
-  }
+  // reloadDash() {
+  //   this.showDash = false;
+  //   setTimeout(() => this.showDash = true);
+  //   window.location.reload();
+  // }
 
-   reloadComponent() {
-    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-      this.router.navigate(['/AdminDashComponent']);
-    });
-  }
+  //  reloadComponent() {
+  //   this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+  //     this.router.navigate(['/AdminDashComponent']);
+  //   });
+  // }
 }

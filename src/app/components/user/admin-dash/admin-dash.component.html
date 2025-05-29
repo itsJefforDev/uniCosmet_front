@@ -127,7 +127,7 @@
 
                 <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 ps-5 small">
                   <li><a href="#" class="link-body-emphasis d-inline-flex text-decoration-none rounded "
-                      href="javascript:void(0);" (click)="reloadDash()">General</a></li>
+                      href="javascript:void(0);" (click)="showGeneralDashboard()">General</a></li>
                 </ul>
 
               </div>
@@ -151,7 +151,7 @@
       <app-user-list *ngIf="userList"></app-user-list>
       <app-product-list *ngIf="productList"></app-product-list>
       <app-product-create *ngIf="productCreate"></app-product-create>
-      <app-dashboard-general *ngIf="showDash"></app-dashboard-general>
+      <app-dashboard-general *ngIf="generalDashBoard"></app-dashboard-general>
 
       <!-- <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">Dashboard</h1>

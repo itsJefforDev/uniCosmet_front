@@ -1,0 +1,71 @@
+<div class="card shadow" style="padding-left: 150px; padding-right: 150px; padding-top: 40px; padding-bottom: 40px;">
+  <div class="card-body bg-white text-black">
+    <h4 class="card-title text-center mb-4">Editar Perfil</h4>
+
+    <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+      <div class="mb-3">
+        <label for="name" class="form-label">Nombre</label>
+        <input id="name" class="form-control" formControlName="name" placeholder="Nombre">
+        <div *ngIf="profileForm.get('name')?.invalid && profileForm.get('name')?.touched" class="text-danger small">
+          Nombre requerido
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="age" class="form-label">Edad</label>
+        <input id="age" type="number" class="form-control" formControlName="age" placeholder="Edad">
+        <div *ngIf="profileForm.get('age')?.invalid && profileForm.get('age')?.touched" class="text-danger small">
+          Edad válida requerida
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input id="email" type="email" class="form-control" formControlName="email" placeholder="Correo electrónico">
+        <div *ngIf="profileForm.get('email')?.invalid && profileForm.get('email')?.touched" class="text-danger small">
+          Email inválido
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="nickname" class="form-label">Apodo</label>
+        <input id="nickname" class="form-control" formControlName="nickname" placeholder="Apodo">
+        <div *ngIf="profileForm.get('nickname')?.invalid && profileForm.get('nickname')?.touched"
+          class="text-danger small">
+          Apodo requerido
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="password" class="form-label">Contraseña</label>
+        <input id="password" type="password" class="form-control" formControlName="password"
+          placeholder="Nueva contraseña">
+        <div *ngIf="profileForm.get('password')?.invalid && profileForm.get('password')?.touched"
+          class="text-danger small">
+          Mínimo 6 caracteres
+        </div>
+      </div>
+      <!-- 
+            <div class="mb-3">
+              <label for="rol" class="form-label">Rol</label>
+              <select id="rol" class="form-select" formControlName="rol">
+                <option value="user">Usuario</option>
+                <option value="admin">Administrador</option>
+              </select>
+              <div *ngIf="profileForm.get('rol')?.invalid && profileForm.get('rol')?.touched" class="text-danger small">
+                Rol requerido
+              </div>
+            </div> -->
+
+      <div class="d-grid gap-2 mt-5">
+        <button type="submit" class="btn btn-dark" [disabled]="loading || profileForm.invalid">
+          Guardar cambios
+        </button>
+      </div>
+
+      <div *ngIf="errorMessage" class="alert alert-danger mt-3" role="alert">
+        {{ errorMessage }}
+      </div>
+    </form>
+  </div>
+</div>

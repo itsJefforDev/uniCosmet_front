@@ -68,7 +68,7 @@ export class ApiLoginService {
 
     // Decodificar el token para obtener el ID (esto es un ejemplo simplificado)
     const payload = JSON.parse(atob(token.split('.')[1]));
-    return payload.userId || null; // Asegúrate que tu JWT incluya el userId
+    return payload.id || null; // Asegúrate que tu JWT incluya el userId
   }
 
   private setCurrentUser(token: string): void {

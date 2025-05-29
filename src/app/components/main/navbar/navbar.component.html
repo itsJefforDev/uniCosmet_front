@@ -7,18 +7,11 @@
 
   <div class="collapse navbar-collapse" id="navbarContent">
     <form class="d-flex me-3 ms-auto">
-      <input class="form-control me-2 border" type="search" placeholder="Buscar" />
+      <!-- <input class="form-control me-2 border" type="search" placeholder="Buscar" /> -->
     </form>
 
     <ul class="navbar-nav mb-2 mb-lg-0">
-      <li class="nav-item">
-        <select class="me-3" aria-label="Categorías">
-          <option selected>Categorías</option>
-          <option value="1">Cuerpo</option>
-          <option value="2">Cara</option>
-        </select>
-      </li>
-      <li class="nav-item"><a class="nav-link" href="#">Acerca de</a></li>
+      <li class="nav-item"><a class="nav-link" href="#" (click)="showPurchasesProduct($event)" [routerLink]="['/userDashComponent']">Comprar productos</a></li>
       <!-- Opciones cuando NO está autenticado -->
       <ng-container *ngIf="!isAuthenticated">
         <li class="nav-item"><a class="nav-link" [routerLink]="['/userLoginComponent']">Iniciar sesión</a></li>
@@ -31,18 +24,19 @@
             {{ userNickname || 'Mi cuenta' }}
           </a>
           <ul class="dropdown-menu dropdown-menu-end">
-            <li><a class="dropdown-item" [routerLink]="['/profile']">Editar perfil</a></li>
-            <li><a class="dropdown-item" [routerLink]="['/my-purchases']">Mis compras</a></li>
+            <li><a class="dropdown-item" href="#" (click)="showEditInfo($event)">Editar perfil</a></li>
+            <li><a class="dropdown-item" href="#" (click)="showPurchasesUser($event)">Mis compras</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" [routerLink]="['/']" (click)="logout()">Cerrar sesión</a></li>
           </ul>
         </li>
-        <li class="nav-item">
+        <!-- Opcional: contador de carrito -->
+        <!-- <li class="nav-item">
           <a class="nav-link" [routerLink]="['/cart']">
             🛒
-            <span class="badge bg-danger rounded-pill">0</span> <!-- Opcional: contador de carrito -->
+            <span class="badge bg-danger rounded-pill">0</span> 
           </a>
-        </li>
+        </li> -->
       </ng-container>
     </ul>
   </div>

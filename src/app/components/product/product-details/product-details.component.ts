@@ -1,9 +1,11 @@
+import { ApiLoginService } from './../../../services/user-services/api-login/api-login.service';
 import { Component } from '@angular/core';
 import { Product } from '../../../models/Product';
 import { ApiProductService } from '../../../services/product-service/api-product.service';
 ;
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiPurchaseProductService } from '../../../services/product-service/api-purchase-product/api-purchase-product.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-product-details',
@@ -12,16 +14,18 @@ import { ApiPurchaseProductService } from '../../../services/product-service/api
   styleUrl: './product-details.component.css'
 })
 export class ProductDetailsComponent {
-product!: Product;
+  product!: Product;
   quantity = 1;
   loading = true;
+
+  userId!: number;
 
   constructor(
     private route: ActivatedRoute,
     private apiProductService: ApiProductService,
-    private apiPurchaseProductService: ApiPurchaseProductService,
+    private apiPurchaseProductService: ApiPurchaseProductService, private apiLoginService: ApiLoginService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     const productId = this.route.snapshot.params['id'];
@@ -38,12 +42,35 @@ product!: Product;
   }
 
   purchaseProduct(): void {
+    this.userId = this.apiLoginService.getCurrentUserId()!;
+    console.log(this.userId);
+    if (!this.userId) {
+      Swal.fire({
+        title: "Parece que no has iniciado sesion",
+        text: "Vamos a iniciar sesion!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Si"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.router.navigate(['/userLoginComponent']);
+        }
+        this.router.navigate(['/storeComponent']);
+      });
+      return;
+    }
     this.apiPurchaseProductService.createPurchase({
       productId: this.product.productId,
       quantity: this.quantity
     }).subscribe({
       next: () => {
-        alert('Compra realizada con éxito');
+        Swal.fire({
+          title: "Compra realizada!",
+          icon: "success",
+          draggable: true
+        });
         this.router.navigate(['/my-purchases']);
       },
       error: (err) => {

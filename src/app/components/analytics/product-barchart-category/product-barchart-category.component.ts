@@ -1,5 +1,5 @@
-import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
-import { ApiProductService } from '../../../services/product-service/api-product.service';
+import { ApiProductService } from './../../../services/product-service/api-product.service';
+import { ChangeDetectorRef, Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { ChartData, ChartOptions, ChartType } from 'chart.js';
 import { isPlatformBrowser } from '@angular/common';
 import { Router } from '@angular/router';
@@ -11,43 +11,47 @@ import { Router } from '@angular/router';
   templateUrl: './product-barchart-category.component.html',
   styleUrl: './product-barchart-category.component.css'
 })
-export class ProductBarchartCategoryComponent {
+export class ProductBarchartCategoryComponent implements OnInit {
 
-  
-  isBrowser: boolean;
-
+  // Opciones del gráfico
   public barChartOptions: ChartOptions = {
     responsive: true,
+    aspectRatio: 2,
+    scales: {
+      x: {}, // habilita el eje X
+      y: {
+        beginAtZero: true // comienza en cero para claridad
+      }
+    },
+    plugins: {
+      legend: {
+        display: false // ocultar leyenda si no es necesaria
+      }
+    }
   };
 
-  public barChartLabels: string[] = [];
+  // Tipo de gráfico
+  public barChartType: ChartType = 'bar';
 
+  // Datos iniciales vacíos
   public barChartData: ChartData<'bar'> = {
     labels: [],
     datasets: [
       {
         data: [],
-        label: 'Cantidad por categoría',
-        backgroundColor: '#42A5F5'
+        backgroundColor: [],
+        label: 'Cantidad por rol'
       }
     ]
   };
 
-  public barChartType: ChartType = 'bar';
+  constructor(
+    private apiProductService: ApiProductService,
+    private cdRef: ChangeDetectorRef
+  ) {}
 
-
-  product: any[] = [];
-
-  constructor(private apiProductService: ApiProductService, @Inject(PLATFORM_ID) private platformId: Object, private router: Router) {
-    this.isBrowser = isPlatformBrowser(this.platformId);
-  }
-
-  ngOnInit(): void {
-
-    if (this.isBrowser) {
-      this.getProducts();
-    }
-
+  ngOnInit() {
+    this.getProducts();
   }
 
   getProducts(): void {
@@ -60,14 +64,30 @@ export class ProductBarchartCategoryComponent {
           categoryCounts[category] = (categoryCounts[category] || 0) + 1;
         });
 
-        this.barChartData.labels = Object.keys(categoryCounts);
-        this.barChartData.datasets[0].data = Object.values(categoryCounts);
+        const categories = Object.keys(categoryCounts);
+        const cantidades = Object.values(categoryCounts);
+        const colores = ['#42A5F5', '#66BB6A', '#FFA726', '#AB47BC', '#FF6384', '#36A2EB'];
+
+        // Asignamos el objeto completo para que Angular detecte el cambio
+        this.barChartData = {
+          labels: categories,
+          datasets: [
+            {
+              label: 'Cantidad por rol',
+              data: cantidades,
+              backgroundColor: colores.slice(0, categories.length)
+            }
+          ]
+        };
+
+        console.log('Labels:', categories);
+        console.log('Data:', cantidades);
+
+        this.cdRef.detectChanges();
       },
       (error) => {
-        console.error('Error al obtener productos', error);
+        console.error('Error al obtener usuarios', error);
       }
     );
-  };
-
- 
+  }
 }

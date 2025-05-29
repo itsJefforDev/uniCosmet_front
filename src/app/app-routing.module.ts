@@ -13,6 +13,7 @@ import { UserDashComponent } from './components/user/user-dash/user-dash.compone
 import { ListProductPurchaseComponent } from './components/product/list-product-purchase/list-product-purchase.component';
 import { ProductDetailsComponent } from './components/product/product-details/product-details.component';
 import { UserPurchasesComponent } from './components/user/user-purchases/user-purchases.component';
+import { UserEditInfoComponent } from './components/user/user-edit-info/user-edit-info.component';
 
 const routes: Routes = [
   { path: 'userLoginComponent', component: UserLoginComponent },
@@ -28,6 +29,9 @@ const routes: Routes = [
   { path: 'listProductPurchaseComponent', component: ListProductPurchaseComponent },
   { path: 'products/:id', component: ProductDetailsComponent },
   { path: 'userPurchasesComponent', component: UserPurchasesComponent },
+  { path: 'userEditInfoComponent', component: UserEditInfoComponent },
+
+  
 
   
 

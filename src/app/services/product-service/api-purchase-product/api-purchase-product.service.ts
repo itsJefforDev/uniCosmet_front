@@ -15,7 +15,7 @@ export class ApiPurchaseProductService {
 
   private apiUrl = 'http://localhost:8080/api/purchases';
 
-  constructor(private http: HttpClient, @Inject(PLATFORM_ID) private platformId: Object) {
+  constructor(private http: HttpClient) {
 
   }
 
@@ -35,10 +35,10 @@ export class ApiPurchaseProductService {
   //   }
   // }
   // Método para obtener las compras del usuario
-  getMyPurchases(): Observable<Purchase[]> {
+  getMyPurchases(): Observable<any[]> {
     const headers = this.createAuthHeaders();
     console.log('entro a la api');
-    return this.http.get<Purchase[]>(`${this.apiUrl}/my-purchases`, { headers });
+    return this.http.get<any[]>(`${this.apiUrl}/my-purchases`, { headers });
   }
 
   // let headers = new HttpHeaders();
@@ -53,9 +53,9 @@ export class ApiPurchaseProductService {
   // Método privado para crear headers con autenticación
   private createAuthHeaders(): HttpHeaders {
     let token = '';
-    if (isPlatformBrowser(this.platformId)) {
+    
       token = localStorage.getItem('token') || '';
-    }
+    
     console.log(token);
     return new HttpHeaders({
       'Content-Type': 'application/json',

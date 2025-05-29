@@ -41,6 +41,8 @@ import { ProductDetailsComponent } from './components/product/product-details/pr
 import { UserPurchasesComponent } from './components/user/user-purchases/user-purchases.component';
 import { JwtInterceptor } from './utils/JwtInterceptor';
 import { isPlatformBrowser } from '@angular/common';
+import { UserEditInfoComponent } from './components/user/user-edit-info/user-edit-info.component';
+import { UserBoardComponent } from './components/user/user-board/user-board.component';
 
 
 
@@ -75,6 +77,8 @@ import { isPlatformBrowser } from '@angular/common';
     ListProductPurchaseComponent,
     ProductDetailsComponent,
     UserPurchasesComponent,
+    UserEditInfoComponent,
+    UserBoardComponent,
     
     
   ],

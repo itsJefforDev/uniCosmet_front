@@ -1,4 +1,4 @@
-import { Component, Inject, PLATFORM_ID } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { ApiUserService } from '../../../services/api-user.service';
 import { ChartData, ChartOptions, ChartType } from 'chart.js';
 import { isPlatformBrowser } from '@angular/common';
@@ -9,42 +9,31 @@ import { isPlatformBrowser } from '@angular/common';
   templateUrl: './user-barchart-rol.component.html',
   styleUrl: './user-barchart-rol.component.css'
 })
-export class UserBarchartRolComponent {
-  isBrowser: boolean;
-
-  public barChartOptions: ChartOptions = {
+export class UserBarchartRolComponent implements OnInit {
+ public barChartOptions: ChartOptions = {
     responsive: true,
-    aspectRatio: -1, // 1 = cuadrado (ancho:alto)
+    aspectRatio: 2
   };
 
-  public barChartLabels: string[] = [];
+  public barChartType: ChartType = 'pie';
 
   public barChartData: ChartData<'pie'> = {
     labels: [],
     datasets: [
       {
         data: [],
-        label: 'Cantidad por categoría',
-        backgroundColor: ['#42A5F5',  '#66BB6A']
+        backgroundColor: []
       }
     ]
   };
 
-  public barChartType: ChartType = 'pie';
+  constructor(
+    private apiUserService: ApiUserService,
+    private cdRef: ChangeDetectorRef
+  ) {}
 
-
-  user: any[] = [];
-
-  constructor(private apiUserService: ApiUserService, @Inject(PLATFORM_ID) private platformId: Object) {
-    this.isBrowser = isPlatformBrowser(this.platformId);
-  }
-
-  ngOnInit(): void {
-
-    if (this.isBrowser) {
-      this.getUsers();
-    }
-
+  ngOnInit() {
+    this.getUsers();
   }
 
   getUsers(): void {
@@ -57,12 +46,28 @@ export class UserBarchartRolComponent {
           rolCounts[rol] = (rolCounts[rol] || 0) + 1;
         });
 
-        this.barChartData.labels = Object.keys(rolCounts);
-        this.barChartData.datasets[0].data = Object.values(rolCounts);
+        const roles = Object.keys(rolCounts);
+        const cantidades = Object.values(rolCounts);
+        const colores = ['#42A5F5', '#66BB6A', '#FFA726', '#AB47BC', '#FF6384', '#36A2EB'];
+
+        this.barChartData = {
+          labels: roles,
+          datasets: [
+            {
+              data: cantidades,
+              backgroundColor: colores.slice(0, roles.length)
+            }
+          ]
+        };
+
+        console.log('Labels:', roles);
+        console.log('Data:', cantidades);
+
+        this.cdRef.detectChanges();
       },
       (error) => {
-        console.error('Error al obtener productos', error);
+        console.error('Error al obtener usuarios', error);
       }
     );
-  };
+  }
 }
