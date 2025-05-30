@@ -11,7 +11,6 @@ import { HTTP_INTERCEPTORS, HttpClientModule, provideHttpClient, withFetch } fro
 // Importa el módulo de Angular Material
 import { MaterialModule } from './material.module';
 import { UserListComponent } from './components/user/user-list/user-list.component';
-import { HomeComponent } from './components/main/home/home.component';
 import { UserLoginComponent } from './components/user/user-login/user-login.component';  // Asegúrate de importar el archivo correcto
 import { FormsModule } from '@angular/forms';
 import { AdminDashComponent } from './components/user/admin-dash/admin-dash.component';
@@ -50,7 +49,6 @@ import { UserBoardComponent } from './components/user/user-board/user-board.comp
   declarations: [
     AppComponent,
     UserListComponent,
-    HomeComponent,
     UserLoginComponent,
     AdminDashComponent,
     UserCreateComponent,
