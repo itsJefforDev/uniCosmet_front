@@ -1,3 +1,4 @@
+import { SharedServicesService } from './../../../services/shared-services.service';
 import { Component, OnInit } from '@angular/core';
 import { Purchase } from '../../../models/Purchase';
 import { ApiPurchaseProductService } from '../../../services/product-service/api-purchase-product/api-purchase-product.service';
@@ -17,9 +18,10 @@ export class UserPurchasesComponent implements OnInit {
 
   userId!: number;
 
-  constructor(private apiPurchaseProductService: ApiPurchaseProductService, private apiLoginService: ApiLoginService, private router:Router) { }
+  constructor(private apiPurchaseProductService: ApiPurchaseProductService, private apiLoginService: ApiLoginService, private router: Router, private sharedServicesService:SharedServicesService) { }
 
   ngOnInit(): void {
+    this.sharedServicesService.setPurchasesProduct(false);
     this.getPurchases();
     this.userId = this.apiLoginService.getCurrentUserId()!;
     console.log(this.userId);
@@ -35,10 +37,13 @@ export class UserPurchasesComponent implements OnInit {
       }).then((result) => {
         if (result.isConfirmed) {
           this.router.navigate(['/userLoginComponent']);
+          return;
+
         }
         this.router.navigate(['/storeComponent']);
+        return;
+
       });
-      return;
     }
   }
 

@@ -41,10 +41,11 @@ export class UserLoginComponent {
           });
 
           if (this.currentUser.rol == "ADMIN") {
-            this.router.navigate(['/AdminDashComponent']);
+            this.reloadCurrentRoute('/AdminDashComponent');
+
             console.log(this.currentUser); // Redirige al dashboard
           } else {
-            this.router.navigate(['/userDashComponent']);
+            this.reloadCurrentRoute('/userDashComponent');
             console.log(this.currentUser);
           }
 
@@ -62,6 +63,12 @@ export class UserLoginComponent {
     }
   }
 
+  reloadCurrentRoute(route: string) {
+    const currentUrl = route;
+    this.router.navigate([currentUrl]).then(() => {
+      window.location.reload();
+    });
+  }
 
   /* old
   // Método para manejar el inicio de sesión

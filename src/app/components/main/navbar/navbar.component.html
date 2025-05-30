@@ -24,8 +24,8 @@
             {{ userNickname || 'Mi cuenta' }}
           </a>
           <ul class="dropdown-menu dropdown-menu-end">
-            <li><a class="dropdown-item" href="#" (click)="showEditInfo($event)">Editar perfil</a></li>
-            <li><a class="dropdown-item" href="#" (click)="showPurchasesUser($event)">Mis compras</a></li>
+            <li><a class="dropdown-item" href="#" (click)="showEditInfo($event)" [routerLink]="['/userDashComponent']">Editar perfil</a></li>
+            <li><a class="dropdown-item" href="#" (click)="showPurchasesUser($event)" [routerLink]="['/userDashComponent']">Mis compras</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" [routerLink]="['/']" (click)="logout()">Cerrar sesión</a></li>
           </ul>

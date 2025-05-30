@@ -1,3 +1,4 @@
+import { SharedServicesService } from './../../../services/shared-services.service';
 import { Component } from '@angular/core';
 import { ApiProductService } from '../../../services/product-service/api-product.service';
 
@@ -11,12 +12,13 @@ import { Router } from '@angular/router';
   styleUrl: './list-product-purchase.component.css'
 })
 export class ListProductPurchaseComponent {
+
 products: Product[] = [];
   loading = true;
 
   constructor(
     private apiProductService: ApiProductService,
-    private router: Router
+    private router: Router, private sharedServices:SharedServicesService
   ) {}
 
   ngOnInit(): void {
@@ -34,5 +36,6 @@ products: Product[] = [];
 
   viewProductDetail(productId: number): void {
     this.router.navigate(['/products', productId]);
+
   }
 }

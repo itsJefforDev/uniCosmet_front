@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ApiLoginService } from '../../../services/user-services/api-login/api-login.service';
 import { Router } from '@angular/router';
 import { SharedServicesService } from '../../../services/shared-services.service';
@@ -10,14 +10,31 @@ import { SharedServicesService } from '../../../services/shared-services.service
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
   isAuthenticated = false;
   userNickname: string | null = null;
 
 
   purchasesUser: boolean = false;
   editInfo: boolean = false;
-  purchasesProduct: boolean = true;
+  purchasesProduct: boolean = true; 
+
+   constructor(
+    private apiLoginService: ApiLoginService,
+    private router: Router, private sharedService: SharedServicesService
+  ) { 
+    this.sharedService.setPurchasesProduct(this.purchasesProduct);
+  }
+
+
+    ngOnInit() {
+    this.checkAuthState();
+    setTimeout(() => {
+      this.checkAuthState();
+    }, 300);
+
+    this.sharedService.setPurchasesProduct(this.purchasesProduct);
+  }
 
   hideAllPages() {
     this.purchasesProduct = false;
@@ -31,11 +48,7 @@ export class NavbarComponent {
 
 
 
-  constructor(
-    private apiLoginService: ApiLoginService,
-    private router: Router, private sharedService: SharedServicesService
-  ) { }
-
+ 
   showEditInfo(event: Event) {
     event.preventDefault(); // Para que no recargue la página
     this.hideAllPages();
@@ -60,12 +73,13 @@ export class NavbarComponent {
     this.sharedService.setPurchasesProduct(this.purchasesProduct);
   }
 
-  ngOnInit(): void {
-    this.apiLoginService.currentUser$.subscribe(user => {
-      this.isAuthenticated = !!user;
-      this.userNickname = user?.nickname || null;
-    });
-    this.sharedService.setPurchasesProduct(this.purchasesProduct);
+
+
+  //Obtener nickname usuario autenticado y validar
+  private checkAuthState(): void {
+    this.isAuthenticated = this.apiLoginService.isAuthenticated;
+    this.userNickname = this.apiLoginService.currentUserNickname;
+
   }
 
   logout(): void {

@@ -34,7 +34,8 @@ export class UserDashComponent {
   editInfo: boolean = false;
   purchasesUser: boolean = false;
   boardUser: boolean = false;
-  purchasesProduct: boolean = true;
+  purchasesProduct: boolean = false;
+  productDetails: boolean = false;
 
   constructor(private sharedService: SharedServicesService) { }
 
@@ -42,12 +43,15 @@ export class UserDashComponent {
     this.sharedService.editInfo$.subscribe(value => this.editInfo = value);
     this.sharedService.purchasesUser$.subscribe(value => this.purchasesUser = value);
     this.sharedService.purchasesProduct$.subscribe(value => this.purchasesProduct = value);
+    this.sharedService.productDetails$.subscribe(value => this.productDetails = value);
+
   }
 
   hideAllPages() {
     this.editInfo = false;
     this.purchasesProduct = false;
     this.purchasesUser = false;
+    this.productDetails = false;
   }
 
 
@@ -68,4 +72,5 @@ export class UserDashComponent {
     this.hideAllPages();
     this.purchasesUser = true;
   }
+  
 }

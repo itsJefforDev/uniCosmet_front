@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiLoginService } from '../../../services/user-services/api-login/api-login.service';
+import { SharedServicesService } from '../../../services/shared-services.service';
 
 @Component({
   selector: 'app-user-edit-info',
@@ -21,10 +22,11 @@ profileForm!: FormGroup;
     private fb: FormBuilder,
     private authService: ApiLoginService, 
     private apiUserService:ApiUserService,
-    private router: Router
+    private router: Router, private sharedServicesService:SharedServicesService
   ) {}
 
   ngOnInit(): void {
+    this.sharedServicesService.setPurchasesProduct(false);
     this.userId = this.authService.getCurrentUserId()!;
     console.log(this.userId);
     if (!this.userId) {

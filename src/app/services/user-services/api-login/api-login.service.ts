@@ -25,14 +25,38 @@ interface AuthResponse {
 
 export class ApiLoginService {
 
-  private currentUserSubject = new BehaviorSubject<any>(null);
+  public currentUserSubject = new BehaviorSubject<any>(null);
   public currentUser$ = this.currentUserSubject.asObservable();
+
+  public isAuth = false;
+  public userNickname: string | null = null;
 
   //private baseUri = 'http://localhost:8080'; // URL de tu API de Spring Boot
 
   private baseUri = 'https://unicosmet-back.onrender.com';
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router) {
+    this.checkToken();
+  }
+
+  private checkToken(): void {
+    const token = localStorage.getItem('token');
+    const nickname = localStorage.getItem('nickname');
+
+    if (token) {
+      this.isAuth = true;
+      this.userNickname = nickname;
+    }
+  }
+
+    get isAuthenticated(): boolean {
+    return this.isAuth;
+  }
+
+  get currentUserNickname(): string | null {
+    return this.userNickname;
+  }
+
 
   login(nickname: string, password: string): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(`${this.baseUri}/api/auth/authenticate`, { nickname, password }).pipe(
@@ -54,9 +78,6 @@ export class ApiLoginService {
     // this.router.navigate(['/userLoginComponent']);
   }
 
-  isAuthenticated(): boolean {
-    return !!localStorage.getItem('token');
-  }
 
   getToken(): string | null {
     return localStorage.getItem('token');
@@ -81,11 +102,11 @@ export class ApiLoginService {
     this.currentUserSubject.next(user);
   }
 
-    getCurrentUser(): any {
+  getCurrentUser(): any {
     return this.currentUserSubject.value;
   }
 
-  
+
   loadCurrentUser(): void {
     const token = this.getToken();
     if (token) {
@@ -93,22 +114,5 @@ export class ApiLoginService {
     }
   }
 
-  /*
-  old
-
-  login(nickname: string, password: string): Observable<any> {
-    const params = new HttpParams()
-    .set('nickname', nickname)
-    .set('password', password);
-    return this.http.post(this.baseUri + '/api/auth/authenticate', {
-      params
-    }).pipe(
-      catchError(error => {
-        console.error('Error en el login:', error);
-        return throwError(error);  // Propaga el error para que lo manejes donde lo consumas
-      })
-    );
-  }
-  */
 
 }

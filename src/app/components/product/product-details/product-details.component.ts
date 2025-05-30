@@ -56,8 +56,11 @@ export class ProductDetailsComponent {
       }).then((result) => {
         if (result.isConfirmed) {
           this.router.navigate(['/userLoginComponent']);
+          return;
         }
         this.router.navigate(['/storeComponent']);
+        return;
+
       });
       return;
     }
