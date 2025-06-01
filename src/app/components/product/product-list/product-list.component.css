@@ -1,0 +1,31 @@
+/* Agrega esto a tu archivo product-list.component.css */
+
+/* Estilos para los filtros */
+.card-header {
+  padding: 1rem 1.25rem;
+}
+
+.filter-section {
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.input-group-text {
+  background-color: #fff;
+}
+
+/* Ajustes para móviles */
+@media (max-width: 768px) {
+  .filter-section .col-md-6 {
+    margin-bottom: 1rem;
+  }
+  
+  .filter-section .input-group {
+    width: 100%;
+  }
+}
+
+img{
+    width: 100px;
+}

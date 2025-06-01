@@ -43,7 +43,7 @@ export class UserEditInfoComponent {
       age: ['', [Validators.required, Validators.min(1), Validators.max(120)]],
       email: ['', [Validators.required, Validators.email]],
       nickname: ['', Validators.required],
-      password: ['', [Validators.required, Validators.minLength(6)]],
+      // password: ['', [Validators.required, Validators.minLength(6)]],
       rol: ['', Validators.required],
     });
 

@@ -1,92 +1,150 @@
-<div class="container-fluid mt-4 ">
-    <h2>Crear producto</h2>
-    <div class="columnas">
-        <form class="row g-3" (ngSubmit)="saveProduct()" #productForm="ngForm" novalidate>
+<div class="container mt-4">
+    <div class="card shadow">
+        <div class="card-header bg-dark text-white">
+            <h3 class="mb-0">
+                <i class="bi bi-box-seam me-2"></i>
+                Registrar Nuevo Producto
+            </h3>
+        </div>
 
-            <!-- nombre -->
-            <div class="col-md-6">
-                <label for="name" class="form-label">Nombre del producto</label>
-                <input type="text" class="form-control" id="name" name="name" [(ngModel)]="product.name" required
-                    #name="ngModel" [class.is-invalid]="name.invalid && name.touched"
-                    [class.is-valid]="name.valid && name.touched">
-                <div class="invalid-feedback">
-                    El nombre es obligatorio.
-                </div>
-            </div>
+        <div class="card-body">
+            <form [formGroup]="productForm" (ngSubmit)="saveProduct()" novalidate>
+                <div class="row g-3">
+                    <!-- Columna Izquierda -->
+                    <div class="col-md-6">
 
-            <!-- category -->
-            <div class="col-md-6">
-                <label for="category" class="form-label">Categoria</label>
-                <input type="text" class="form-control" id="category" name="category" [(ngModel)]="product.category"
-                    required #category="ngModel" [class.is-invalid]="category.invalid && category.touched"
-                    [class.is-valid]="category.valid && category.touched">
-                <div class="invalid-feedback">
-                    Describa la categoria.
-                </div>
-            </div>
+                        <!-- Nombre -->
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="name" formControlName="name"
+                                [ngClass]="{ 'is-invalid': name?.invalid && (name?.dirty || name?.touched) }"
+                                placeholder="Nombre del producto">
+                            <label for="name">Nombre del Producto</label>
+                            <div class="invalid-feedback">
+                                <div *ngIf="name?.errors?.['required']">El nombre es requerido</div>
+                                <div *ngIf="name?.errors?.['minlength']">
+                                    Mínimo 3 caracteres
+                                </div>
+                                <div *ngIf="name?.errors?.['maxlength']">
+                                    Máximo 100 caracteres
+                                </div>
+                            </div>
+                        </div>
 
+                        <!-- Descripción -->
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Descripción</label>
+                            <textarea class="form-control" id="description" rows="4" formControlName="description"
+                                [ngClass]="{ 'is-invalid': description?.invalid && (description?.dirty || description?.touched) }"
+                                placeholder="Descripción detallada del producto"></textarea>
+                            <div class="invalid-feedback">
+                                <div *ngIf="description?.errors?.['required']">La descripción es requerida</div>
+                                <div *ngIf="description?.errors?.['minlength']">
+                                    Mínimo 10 caracteres
+                                </div>
+                                <div *ngIf="description?.errors?.['maxlength']">
+                                    Máximo 500 caracteres
+                                </div>
+                            </div>
+                            <small class="text-muted">{{ description?.value?.length || 0 }}/500 caracteres</small>
+                        </div>
+                    </div>
 
-            <!-- description -->
-            <div class="col-md-6">
-                <label for="description" class="form-label">Descripcion</label>
-                <input type="text" class="form-control" id="description" name="description"
-                    [(ngModel)]="product.description" required #description="ngModel"
-                    [class.is-invalid]="description.invalid && description.touched"
-                    [class.is-valid]="description.valid && description.touched">
-                <div class="invalid-feedback">
-                    La descripción es obligatoria.
-                </div>
-            </div>
+                    <!-- Columna Derecha -->
+                    <div class="col-md-6">
+                        <!-- Precio -->
+                        <div class="form-floating mb-3">
+                            <input type="number" step="0.01" class="form-control" id="price" formControlName="price"
+                                [ngClass]="{ 'is-invalid': price?.invalid && (price?.dirty || price?.touched) }"
+                                placeholder="0.00">
+                            <label for="price">Precio ($)</label>
+                            <div class="invalid-feedback">
+                                <div *ngIf="price?.errors?.['required']">El precio es requerido</div>
+                                <div *ngIf="price?.errors?.['min']">El precio mínimo es $0.01</div>
+                                <div *ngIf="price?.errors?.['max']">El precio máximo es $10,000</div>
+                            </div>
+                        </div>
 
-            <!-- brand-->
-            <div class="col-md-6">
-                <label for="brand" class="form-label">Marca del producto</label>
-                <input type="text" class="form-control" id="brand" name="brand" [(ngModel)]="product.brand" required
-                    #brand="ngModel" [class.is-invalid]="brand.invalid && brand.touched"
-                    [class.is-valid]="brand.valid && brand.touched">
-                <div class="invalid-feedback">
-                    Selecciona la marca del producto.
-                </div>
-            </div>
+                        <!-- Stock -->
+                        <div class="form-floating mb-3">
+                            <input type="number" class="form-control" id="stock" formControlName="stock"
+                                [ngClass]="{ 'is-invalid': stock?.invalid && (stock?.dirty || stock?.touched) }"
+                                placeholder="0">
+                            <label for="stock">Stock Disponible</label>
+                            <div class="invalid-feedback">
+                                <div *ngIf="stock?.errors?.['required']">El stock es requerido</div>
+                                <div *ngIf="stock?.errors?.['min']">El stock mínimo es 0 unidades</div>
+                                <div *ngIf="stock?.errors?.['max']">El stock máximo es 1000 unidades</div>
+                            </div>
+                        </div>
 
-            <!-- price -->
-            <div class="col-md-6">
-                <label for="price" class="form-label">Precio</label>
-                <div class="input-group">
-                    <span class="input-group-text">$</span>
-                    <input type="number" class="form-control" id="price" name="price" [(ngModel)]="product.price"
-                        required min="0.01" #price="ngModel" [class.is-invalid]="price.invalid && price.touched"
-                        [class.is-valid]="price.valid && price.touched">
-                    <div class="invalid-feedback">
-                        El precio debe ser mayor que 0.
+                        <!-- Marca -->
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="brand" formControlName="brand"
+                                [ngClass]="{ 'is-invalid': brand?.invalid && (brand?.dirty || brand?.touched) }"
+                                placeholder="Marca">
+                            <label for="brand">Marca</label>
+                            <div class="invalid-feedback">
+                                <div *ngIf="brand?.errors?.['required']">La marca es requerida</div>
+                                <div *ngIf="brand?.errors?.['minlength']">
+                                    Mínimo 2 caracteres
+                                </div>
+                                <div *ngIf="brand?.errors?.['maxlength']">
+                                    Máximo 50 caracteres
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Categoría -->
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="category" formControlName="category"
+                                [ngClass]="{ 'is-invalid': category?.invalid && (category?.dirty || category?.touched) }"
+                                placeholder="Categoría">
+                            <label for="category">Categoría</label>
+                            <div class="invalid-feedback">
+                                <div *ngIf="category?.errors?.['required']">La categoría es requerida</div>
+                                <div *ngIf="category?.errors?.['minlength']">
+                                    Mínimo 2 caracteres
+                                </div>
+                                <div *ngIf="category?.errors?.['maxlength']">
+                                    Máximo 50 caracteres
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Imagen -->
+                        <div class="mb-3">
+                            <label for="image" class="form-label">Imagen del Producto</label>
+                            <input type="file" class="form-control" id="image" (change)="onImageSelected($event)"
+                                accept="image/*"
+                                [ngClass]="{ 'is-invalid': image?.invalid && (image?.dirty || image?.touched) }">
+                            <div class="invalid-feedback">
+                                <div *ngIf="image?.errors?.['invalidType']">Solo se permiten imágenes (JPEG, PNG, etc.)
+                                </div>
+                                <div *ngIf="image?.errors?.['maxSize']">El tamaño máximo permitido es 2MB</div>
+                            </div>
+                            <small class="text-muted">Formatos: JPG, PNG. Máx. 2MB</small>
+                        </div>
+
+                        <!-- Vista previa de imagen -->
+                        <div *ngIf="imagePreview" class="text-center mt-2">
+                            <div class="border rounded p-2 bg-light">
+                                <h6 class="text-muted mb-2">Vista Previa</h6>
+                                <img [src]="imagePreview" alt="Vista previa" class="img-fluid rounded"
+                                    style="max-height: 150px;">
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- stock -->
-            <div class="col-md-6">
-                <label for="stock" class="form-label">Stock de producto</label>
-                <input type="number" class="form-control" id="stock" name="stock" [(ngModel)]="product.stock" required
-                    min="1" #stock="ngModel" [class.is-invalid]="stock.invalid && stock.touched"
-                    [class.is-valid]="stock.valid && stock.touched">
-                <div class="invalid-feedback">
-                    El stock es obligatorio y no puede ser negativo.
+                <div class="d-flex justify-content-end mt-4">
+                    <button type="submit" class="btn btn-primary" [disabled]="productForm.invalid || loading">
+                        <span *ngIf="loading" class="spinner-border spinner-border-sm me-2" role="status"
+                            aria-hidden="true"></span>
+                        <i class="bi bi-save me-2"></i>
+                        Guardar Producto
+                    </button>
                 </div>
-            </div>
-
-
-
-            <!-- image -->
-            <!-- <div class="col-md-4">
-                <label for="formFile" class="form-label">Imagen</label>
-                <input class="form-control" type="file" id="formFile" (change)="onImageSelected($event)">
-            </div> -->
-
-
-            <!-- buttonsubmit -->
-            <div class="col-12">
-                <button class="btn btn-primary" type="submit" [disabled]="productForm.invalid">Subir producto</button>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 </div>
